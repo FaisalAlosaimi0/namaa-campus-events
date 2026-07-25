@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540">
+<rect width="900" height="540" fill="#6f2138"/>
+<rect x="40" y="40" width="820" height="460" fill="none" stroke="#dcebe3" stroke-width="4"/>
+<path d="M120 140h300v190H265l-65 65 15-65h-95Z" fill="#dcebe3"/><path d="M420 230h280v175H565l-55 55 12-55H420Z" fill="white" opacity=".85"/>
+<text x="80" y="480" font-family="Georgia, serif" font-size="48" fill="white" font-weight="700">Sustainable Cities</text>
+<text x="82" y="518" font-family="Verdana, sans-serif" font-size="17" fill="#dcebe3" letter-spacing="3">NAMAA CAMPUS ACTIVITIES OFFICE</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540">
+<rect width="900" height="540" fill="#477d78"/>
+<rect x="40" y="40" width="820" height="460" fill="none" stroke="#ffffff" stroke-width="4"/>
+<rect x="230" y="80" width="330" height="390" fill="#ffffff"/><circle cx="330" cy="185" r="55" fill="#477d78"/><rect x="410" y="145" width="105" height="18" fill="#477d78"/><rect x="410" y="185" width="85" height="18" fill="#477d78"/><rect x="285" y="290" width="220" height="16" fill="#477d78"/><rect x="285" y="335" width="190" height="16" fill="#477d78"/><rect x="285" y="380" width="215" height="16" fill="#477d78"/>
+<text x="80" y="480" font-family="Georgia, serif" font-size="48" fill="white" font-weight="700">Arabic CV Clinic</text>
+<text x="82" y="518" font-family="Verdana, sans-serif" font-size="17" fill="#ffffff" letter-spacing="3">NAMAA CAMPUS ACTIVITIES OFFICE</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540">
+<rect width="900" height="540" fill="#4d1727"/>
+<rect x="40" y="40" width="820" height="460" fill="none" stroke="#dcebe3" stroke-width="4"/>
+<rect x="320" y="215" width="150" height="95" fill="#dcebe3"/><path d="M320 235H190M470 235h130M320 290H190M470 290h130" stroke="#dcebe3" stroke-width="16"/><circle cx="160" cy="235" r="50" fill="none" stroke="white" stroke-width="12"/><circle cx="630" cy="235" r="50" fill="none" stroke="white" stroke-width="12"/>
+<text x="80" y="480" font-family="Georgia, serif" font-size="48" fill="white" font-weight="700">Drone Mapping</text>
+<text x="82" y="518" font-family="Verdana, sans-serif" font-size="17" fill="#dcebe3" letter-spacing="3">NAMAA CAMPUS ACTIVITIES OFFICE</text>
+</svg>

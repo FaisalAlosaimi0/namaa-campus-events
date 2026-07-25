@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540">
+<rect width="900" height="540" fill="#477d78"/>
+<rect x="40" y="40" width="820" height="460" fill="none" stroke="#f4e6cf" stroke-width="4"/>
+<circle cx="390" cy="280" r="145" fill="#f4e6cf" opacity=".9"/><circle cx="390" cy="280" r="90" fill="#477d78"/><path d="M245 120v310M270 120v310M600 120c-45 80-45 160 0 220v90" stroke="white" stroke-width="15"/>
+<text x="80" y="480" font-family="Georgia, serif" font-size="48" fill="white" font-weight="700">Food Heritage</text>
+<text x="82" y="518" font-family="Verdana, sans-serif" font-size="17" fill="#f4e6cf" letter-spacing="3">NAMAA CAMPUS ACTIVITIES OFFICE</text>
+</svg>
