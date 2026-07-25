@@ -133,3 +133,129 @@ textarea:focus {
     outline: 3px solid rgba(209, 168, 60, 0.55);
     outline-offset: 3px;
 }
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--mint);
+    border-bottom: 1px solid var(--line);
+}
+
+.hero-grid {
+    min-height: 560px;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: 48px;
+    padding: 70px 0;
+}
+
+.hero-copy {
+    position: relative;
+    z-index: 2;
+}
+
+.eyebrow {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 5px 8px;
+    color: var(--white);
+    background: var(--teal-dark);
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.hero h1 {
+    margin: 8px 0 22px;
+    color: var(--burgundy-dark);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(3rem, 6vw, 5.8rem);
+    line-height: 0.98;
+}
+
+.hero-copy > p:not(.eyebrow) {
+    max-width: 650px;
+    font-size: 1.08rem;
+}
+
+.hero-blocks {
+    position: relative;
+    min-height: 430px;
+}
+
+.block-main {
+    position: absolute;
+    inset: 30px 10px 30px 55px;
+    background: var(--white);
+    border: 2px solid var(--burgundy-dark);
+    z-index: 2;
+}
+
+.block-main img {
+    width: 100%;
+    height: 235px;
+    object-fit: cover;
+}
+
+.block-content {
+    padding: 20px;
+}
+
+.block-content h2 {
+    margin: 7px 0;
+    color: var(--burgundy-dark);
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.block-back-one,
+.block-back-two {
+    position: absolute;
+    border: 2px solid var(--burgundy-dark);
+}
+
+.block-back-one {
+    inset: 0 90px 90px 0;
+    background: var(--mustard);
+}
+
+.block-back-two {
+    inset: 100px 0 0 120px;
+    background: var(--teal);
+}
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.button {
+    display: inline-block;
+    padding: 11px 17px;
+    color: var(--white);
+    background: var(--burgundy);
+    border: 2px solid var(--burgundy);
+    text-decoration: none;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.button:hover {
+    color: var(--ink);
+    background: var(--mustard);
+    border-color: var(--mustard);
+}
+
+.button-light {
+    color: var(--burgundy-dark);
+    background: var(--white);
+    border-color: var(--burgundy-dark);
+}
+
+.button-teal {
+    background: var(--teal-dark);
+    border-color: var(--teal-dark);
+}
