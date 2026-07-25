@@ -452,3 +452,64 @@ textarea:focus {
     max-width: 760px;
     color: #f1dfe5;
 }
+
+.bulletin-list {
+    display: grid;
+    gap: 24px;
+}
+
+.bulletin {
+    display: grid;
+    grid-template-columns: 115px 230px 1fr;
+    background: var(--white);
+    border: 1px solid var(--line);
+    box-shadow: 7px 7px 0 var(--mint);
+}
+
+.bulletin-date {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 18px 10px;
+    color: var(--white);
+    background: var(--burgundy);
+    text-align: center;
+}
+
+.bulletin-date strong {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.bulletin-date span {
+    margin-top: 8px;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+}
+
+.bulletin img {
+    width: 100%;
+    height: 100%;
+    min-height: 225px;
+    object-fit: cover;
+}
+
+.bulletin-copy {
+    padding: 24px;
+}
+
+.bulletin-copy h2 {
+    margin: 8px 0;
+    color: var(--burgundy-dark);
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.event-meta {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    padding: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
