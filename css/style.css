@@ -1,0 +1,135 @@
+:root {
+    --burgundy: #6f2138;
+    --burgundy-dark: #4d1727;
+    --teal: #477d78;
+    --teal-dark: #315e5a;
+    --stone: #ecebe7;
+    --mint: #dcebe3;
+    --mustard: #d1a83c;
+    --white: #ffffff;
+    --ink: #202326;
+    --muted: #666d70;
+    --line: #bfc4c2;
+    --success: #2e684b;
+    --danger: #9d3434;
+    --max: 1160px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Verdana, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--stone);
+    line-height: 1.65;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+}
+
+.shell {
+    width: min(var(--max), 92%);
+    margin: 0 auto;
+}
+
+.announcement {
+    background: var(--burgundy-dark);
+    color: var(--white);
+    font-size: 0.82rem;
+    letter-spacing: 0.4px;
+}
+
+.announcement p {
+    margin: 0;
+    padding: 7px 0;
+}
+
+.site-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+}
+
+.header-row {
+    min-height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    text-decoration: none;
+}
+
+.brand-shape {
+    width: 49px;
+    height: 49px;
+    display: grid;
+    place-items: center;
+    color: var(--burgundy-dark);
+    background: var(--mustard);
+    border: 2px solid var(--burgundy-dark);
+    font-weight: 900;
+    font-size: 1.3rem;
+    box-shadow: 5px 5px 0 var(--mint);
+}
+
+.brand strong,
+.brand small {
+    display: block;
+}
+
+.brand strong {
+    color: var(--burgundy-dark);
+}
+
+.brand small {
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+
+.nav-box {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid var(--line);
+}
+
+.nav-box a {
+    padding: 10px 12px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-right: 1px solid var(--line);
+}
+
+.nav-box a:last-child {
+    border-right: 0;
+}
+
+.nav-box a:hover,
+.nav-box a:focus,
+.nav-box a.active {
+    color: var(--white);
+    background: var(--burgundy);
+}
+
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 3px solid rgba(209, 168, 60, 0.55);
+    outline-offset: 3px;
+}
