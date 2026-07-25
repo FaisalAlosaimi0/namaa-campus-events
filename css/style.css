@@ -409,3 +409,46 @@ textarea:focus {
 .activity-card h3 {
     color: var(--burgundy-dark);
 }
+
+.stats-panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--burgundy-dark);
+    color: var(--white);
+    border: 3px solid var(--mustard);
+}
+
+.stat {
+    padding: 28px;
+    text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.stat:last-child {
+    border-right: 0;
+}
+
+.stat strong {
+    display: block;
+    color: var(--mustard);
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.page-banner {
+    padding: 52px 0;
+    background: var(--burgundy);
+    color: var(--white);
+    border-bottom: 8px solid var(--mustard);
+}
+
+.page-banner h1 {
+    margin: 6px 0 8px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.5rem, 5vw, 4.4rem);
+}
+
+.page-banner p {
+    max-width: 760px;
+    color: #f1dfe5;
+}
