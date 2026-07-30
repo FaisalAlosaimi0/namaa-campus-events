@@ -1,63 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namaa Campus Events</title>
+<?php
+$pageTitle = 'Home';
+require 'includes/db.php';
 
-    <link rel="stylesheet" href="css/style.css">
-</head>
+$featured = null;
+$featuredResult = mysqli_query(
+    $conn,
+    "SELECT * FROM events
+     WHERE featured = 1
+     ORDER BY event_date ASC
+     LIMIT 1"
+);
 
-<body>
+if ($featuredResult) {
+    $featured = mysqli_fetch_assoc($featuredResult);
+}
 
-<div class="announcement">
-    <div class="shell">
-        <p>Student activities calendar · Namaa Campus Activities Office</p>
-    </div>
-</div>
+$upcomingResult = mysqli_query(
+    $conn,
+    "SELECT * FROM events
+     WHERE event_date >= CURDATE()
+     ORDER BY event_date ASC, event_time ASC
+     LIMIT 3"
+);
 
-<header class="site-header">
-    <div class="shell header-row">
+$statsResult = mysqli_query(
+    $conn,
+    "SELECT
+        COUNT(*) AS total_events,
+        COUNT(DISTINCT category) AS total_categories,
+        SUM(available_seats) AS total_seats
+     FROM events"
+);
 
-        <a class="brand" href="index.html">
-            <span class="brand-shape">N</span>
+$stats = $statsResult ? mysqli_fetch_assoc($statsResult) : null;
 
-            <span>
-                <strong>Namaa Campus Events</strong>
-                <small>Campus Events Hub</small>
-            </span>
-        </a>
+require 'includes/header.php';
+?>
 
-        <nav class="nav-box">
-            <a class="active" href="index.html">Home</a>
-            <a href="events.html">Events</a>
-            <a href="register.html">Register</a>
-            <a href="registrations.html">Registrations</a>
-            <a href="about.html">About</a>
-        </nav>
-
-    </div>
-</header>
-
-<main>
 <section class="hero">
     <div class="shell hero-grid">
         <div class="hero-copy">
             <p class="eyebrow">Namaa Campus Activities Office</p>
-
             <h1>One board for campus plans.</h1>
-
             <p>
                 Check upcoming activities, read the details, and complete a
-                student registration without searching through separate
-                announcements.
+                student registration without searching through separate announcements.
             </p>
 
             <div class="button-row">
-                <a class="button" href="events.html">Browse all events</a>
-                <a class="button button-light" href="register.html">
-                    Open registration
-                </a>
+                <a class="button" href="events.php">Browse all events</a>
+                <a class="button button-light" href="register.php"> Open registration  </a>
             </div>
         </div>
 
@@ -65,24 +57,26 @@
             <div class="block-back-one"></div>
             <div class="block-back-two"></div>
 
+            <?php if ($featured): ?>
             <article class="block-main">
-                <img src="images/calligraphy-ui.svg" alt="Calligraphy UI">
+                <img src="<?php echo htmlspecialchars($featured['image']); ?>"
+                         alt="<?php echo htmlspecialchars($featured['title']); ?>">
 
-<div class="block-content">
-    <span class="ticket">FEATURED ACTIVITY</span>
-
-    <h2>Arabic Calligraphy for Digital Interfaces</h2>
-
-    <p>
-        A practical session on using Arabic calligraphy ideas in simple
-        digital interface designs.
-    </p>
-
-    <a class="button button-teal" href="event.html">
-        View details
-    </a>
-</div>
-            </article>
+                    <div class="block-content">
+                        <span class="ticket">Featured activity</span>
+                        <h2><?php echo htmlspecialchars($featured['title']); ?></h2>
+                        <p><?php echo htmlspecialchars($featured['short_description']); ?></p>
+                        <a class="button button-teal" href="event.php?id=<?php echo (int) $featured['id']; ?>">
+                            View details
+                        </a>
+                    </div>
+                </article>
+            <?php else: ?>
+                <div class="block-main block-content">
+                    <h2>No featured event</h2>
+                    <p>A featured activity will appear here after it is added to the database.</p>
+                </div>
+            <?php endif; ?>
         </aside>
     </div>
 </section>
@@ -96,101 +90,41 @@
                 <p>The next three events are loaded from MySQL.</p>
             </div>
 
-            <a class="button button-light" href="events.html">
-                Open the full board
-            </a>
+            <a class="button button-light" href="events.php">Open the full board</a>
         </div>
 
+         <?php if ($upcomingResult && mysqli_num_rows($upcomingResult) > 0): ?>
         <div class="timeline">
-
+            <?php while ($event = mysqli_fetch_assoc($upcomingResult)): ?>
             <article class="timeline-item">
                 <div class="timeline-date">
-                    <strong>04</strong>
-                    <span>AUG</span>
+                    <strong><?php echo date('d', strtotime($event['event_date'])); ?></strong>
+                            <span><?php echo date('M', strtotime($event['event_date'])); ?></span>      
                 </div>
 
                 <div class="timeline-card">
-                    <img src="images/calligraphy-ui.svg"
-                         alt="Arabic Calligraphy for Digital Interfaces">
+                    <img src="<?php echo htmlspecialchars($event['image']); ?>"
+                         alt="<?php echo htmlspecialchars($event['title']); ?>">
 
                     <div class="timeline-copy">
-                        <span class="ticket">Culture</span>
-
-                        <h3>Arabic Calligraphy for Digital Interfaces</h3>
-
-                        <p>
-                            A practical session on using Arabic calligraphy ideas
-                            in simple digital interface designs.
-                        </p>
-
-                        <p><strong>Location:</strong> Innovation Hall</p>
-
-                        <a class="button button-light" href="event.html">
+                        <span class="ticket"><?php echo htmlspecialchars($event['category']); ?></span>
+                                <h3><?php echo htmlspecialchars($event['title']); ?></h3>
+                                <p><?php echo htmlspecialchars($event['short_description']); ?></p>
+                                <p><strong>Location:</strong> <?php echo htmlspecialchars($event['location']); ?></p>
+                                <a class="button button-light" href="event.php?id=<?php echo (int) $event['id']; ?>">
                             Event information
                         </a>
                     </div>
                 </div>
             </article>
-
-            <article class="timeline-item">
-                <div class="timeline-date">
-                    <strong>07</strong>
-                    <span>AUG</span>
-                </div>
-
-                <div class="timeline-card">
-                    <img src="images/cloud-careers.svg"
-                         alt="Cloud Careers Workshop">
-
-                    <div class="timeline-copy">
-                        <span class="ticket">Technology</span>
-
-                        <h3>Cloud Careers Workshop</h3>
-
-                        <p>
-                            Learn cloud computing fundamentals and explore career
-                            opportunities with industry professionals.
-                        </p>
-
-                        <p><strong>Location:</strong> Computer Lab 3</p>
-
-                        <a class="button button-light" href="event.html">
-                            Event information
-                        </a>
-                    </div>
-                </div>
-            </article>
-
-            <article class="timeline-item">
-                <div class="timeline-date">
-                    <strong>12</strong>
-                    <span>AUG</span>
-                </div>
-
-                <div class="timeline-card">
-                    <img src="images/drone-mapping.svg"
-                         alt="Drone Mapping Basics">
-
-                    <div class="timeline-copy">
-                        <span class="ticket">Engineering</span>
-
-                        <h3>Drone Mapping Basics</h3>
-
-                        <p>
-                            Discover drone mapping techniques and their practical
-                            applications in engineering projects.
-                        </p>
-
-                        <p><strong>Location:</strong> Outdoor Training Area</p>
-
-                        <a class="button button-light" href="event.html">
-                            Event information
-                        </a>
-                    </div>
-                </div>
-            </article>
-
-        </div>
+         <?php endwhile; ?>
+            </div>
+        <?php else: ?>
+            <div class="empty-state">
+                <h2>No upcoming events</h2>
+                <p>The database does not contain any future event dates.</p>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
 
@@ -206,34 +140,22 @@
         <div class="activity-grid">
             <article class="activity-card">
                 <h3>Learning</h3>
-                <p>
-                    Academic practice, research support, technology sessions,
-                    and career preparation.
-                </p>
+                <p>Academic practice, research support, technology sessions, and career preparation.</p>
             </article>
 
             <article class="activity-card">
                 <h3>Culture</h3>
-                <p>
-                    Arabic design, Saudi heritage, reading, communication,
-                    and student media.
-                </p>
+                <p>Arabic design, Saudi heritage, reading, communication, and student media.</p>
             </article>
 
             <article class="activity-card">
                 <h3>Community</h3>
-                <p>
-                    Student dialogue, wellbeing awareness, safety planning,
-                    and shared campus activities.
-                </p>
+                <p>Student dialogue, wellbeing awareness, safety planning, and shared campus activities.</p>
             </article>
 
             <article class="activity-card">
                 <h3>Environment</h3>
-                <p>
-                    Field activities, renewable energy models, and practical
-                    sustainability discussions.
-                </p>
+                <p>Field activities, renewable energy models, and practical sustainability discussions.</p>
             </article>
         </div>
     </div>
@@ -250,30 +172,24 @@
 
         <div class="stats-panel">
             <div class="stat">
-                <strong>--</strong>
+                <strong><?php echo $stats ? (int) $stats['total_events'] : 0; ?></strong>
                 <span>Events</span>
             </div>
 
             <div class="stat">
-                <strong>--</strong>
+                <strong><?php echo $stats ? (int) $stats['total_categories'] : 0; ?></strong>
                 <span>Categories</span>
             </div>
 
             <div class="stat">
-                <strong>--</strong>
-                <span>Available Seats</span>
+                <strong><?php echo $stats ? (int) $stats['total_seats'] : 0; ?></strong>
+                <span>Available seats</span>
             </div>
         </div>
     </div>
 </section>
 
-</main>
-
-<footer>
-    <div class="shell">
-        <p>© 2026 Namaa Campus Events</p>
-    </div>
-</footer>
-
-</body>
-</html>
+<?php
+mysqli_close($conn);
+require 'includes/footer.php';
+?>
