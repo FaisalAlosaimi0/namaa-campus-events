@@ -1,89 +1,78 @@
-<!DOCTYPE html>
+<?php
+$pageTitle = 'Registrations';
+require 'includes/db.php';
 
-<html lang="en">
+$registrationsResult = mysqli_query(
+    $conn,
+    "SELECT
+        registrations.full_name,
+        registrations.student_id,
+        registrations.email,
+        registrations.phone,
+        registrations.college,
+        registrations.academic_level,
+        registrations.registration_date,
+        events.title AS event_title
+     FROM registrations
+     INNER JOIN events ON registrations.event_id = events.id
+     ORDER BY registrations.registration_date DESC"
+);
 
-<head>
+require 'includes/header.php';
+?>
 
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Registrations | Namaa Campus Events</title>
-
-    <link rel="stylesheet" href="css/style.css">
-
-</head>
-
-<body>
-
-   
-<div class="announcement">
+<section class="page-banner">
     <div class="shell">
-        <p>Student activities calendar · Namaa Campus Activities Office</p>
+        <p class="eyebrow">Academic database view</p>
+        <h1>Saved registrations</h1>
+        <p>This page joins registration records with their selected event titles.</p>
     </div>
-</div>
-
-<header class="site-header">
-    <div class="shell header-row">
-
-        <a class="brand" href="index.html">
-            <span class="brand-shape">N</span>
-
-            <span>
-                <strong>Namaa Campus Events</strong>
-                <small>Campus Events Hub</small>
-            </span>
-        </a>
-
-        <nav class="nav-box">
-            <a href="index.html">Home</a>
-            <a href="events.html">Events</a>
-            <a href="register.html">Register</a>
-            <a class="active" href="registrations.html">Registrations</a>
-            <a href="about.html">About</a>
-        </nav>
-
-    </div>
-</header>
-
-    <main>
-
-<section class="section">
-
-    <div class="shell">
-
-        <div class="empty-state">
-
-            <h2>No registrations saved</h2>
-
-            <p>
-
-                Valid student registrations will appear here after they are inserted.
-
-            </p>
-
-            <a class="button" href="register.html">
-
-                Open registration form
-
-            </a>
-
-        </div>
-
-    </div>
-
 </section>
 
-    </main>
-
-   <footer>
+<section class="section">
     <div class="shell">
-        
-        <p>© 2026 Namaa Campus Events</p>
+        <?php if ($registrationsResult && mysqli_num_rows($registrationsResult) > 0): ?>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Student ID</th>
+                            <th>University Email</th>
+                            <th>Saudi Mobile</th>
+                            <th>College</th>
+                            <th>Academic Level</th>
+                            <th>Event</th>
+                            <th>Registration Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($registration = mysqli_fetch_assoc($registrationsResult)): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($registration['full_name']); ?></td>
+                                <td><?php echo htmlspecialchars($registration['student_id']); ?></td>
+                                <td><?php echo htmlspecialchars($registration['email']); ?></td>
+                                <td><?php echo htmlspecialchars($registration['phone']); ?></td>
+                                <td><?php echo htmlspecialchars($registration['college']); ?></td>
+                                <td><?php echo htmlspecialchars($registration['academic_level']); ?></td>
+                                <td><?php echo htmlspecialchars($registration['event_title']); ?></td>
+                                <td><?php echo date('d M Y, g:i A', strtotime($registration['registration_date'])); ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php else: ?>
+            <div class="empty-state">
+                <h2>No registrations saved</h2>
+                <p>Valid student registrations will appear here after they are inserted.</p>
+                <a class="button" href="register.php">Open registration form</a>
+            </div>
+        <?php endif; ?>
     </div>
-</footer>
+</section>
 
-
-</body>
-
-</html>
+<?php
+mysqli_close($conn);
+require 'includes/footer.php';
+?>
