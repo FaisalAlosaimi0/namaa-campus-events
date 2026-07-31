@@ -1,45 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namaa Campus Events | Events</title>
+<?php
+$pageTitle = 'Events';
+require 'includes/db.php';
 
-    <link rel="stylesheet" href="css/style.css">
-</head>
+$eventsResult = mysqli_query(
+    $conn,
+    "SELECT * FROM events ORDER BY event_date ASC, event_time ASC"
+);
 
-<body>
-
-<div class="announcement">
-    <div class="shell">
-        <p>Student activities calendar · Namaa Campus Activities Office</p>
-    </div>
-</div>
-
-<header class="site-header">
-    <div class="shell header-row">
-
-        <a class="brand" href="index.html">
-            <span class="brand-shape">N</span>
-
-            <span>
-                <strong>Namaa Campus Events</strong>
-                <small>Campus Events Hub</small>
-            </span>
-        </a>
-
-        <nav class="nav-box">
-            <a href="index.html">Home</a>
-            <a class="active" href="events.html">Events</a>
-            <a href="register.html">Register</a>
-            <a href="registrations.html">Registrations</a>
-            <a href="about.html">About</a>
-        </nav>
-
-    </div>
-</header>
-
-<main>
+require 'includes/header.php';
+?>
 
 <section class="page-banner">
     <div class="shell">
@@ -54,103 +23,45 @@
 
 <section class="section">
     <div class="shell">
-        <div class="bulletin-list">
+        <?php if ($eventsResult && mysqli_num_rows($eventsResult) > 0): ?>
+            <div class="bulletin-list">
+                <?php while ($event = mysqli_fetch_assoc($eventsResult)): ?>
+                    <article class="bulletin">
+                        <div class="bulletin-date">
+                            <strong><?php echo date('d', strtotime($event['event_date'])); ?></strong>
+                            <span><?php echo date('M Y', strtotime($event['event_date'])); ?></span>
+                        </div>
 
-           <article class="bulletin">
-    <div class="bulletin-date">
-        <strong>--</strong>
-        <span>---</span>
-    </div>
+                        <img src="<?php echo htmlspecialchars($event['image']); ?>"
+                             alt="<?php echo htmlspecialchars($event['title']); ?>">
 
-    <img src="images/calligraphy-ui.svg" alt="Arabic Calligraphy Workshop">
+                        <div class="bulletin-copy">
+                            <span class="ticket"><?php echo htmlspecialchars($event['category']); ?></span>
+                            <h2><?php echo htmlspecialchars($event['title']); ?></h2>
+                            <p><?php echo htmlspecialchars($event['short_description']); ?></p>
 
-    <div class="bulletin-copy">
-        <span class="ticket">Culture</span>
+                            <ul class="event-meta">
+                                <li><strong>Time:</strong> <?php echo date('g:i A', strtotime($event['event_time'])); ?></li>
+                                <li><strong>Location:</strong> <?php echo htmlspecialchars($event['location']); ?></li>
+                            </ul>
 
-        <h2>Arabic Calligraphy Workshop</h2>
-
-        <p>
-            Event information will be loaded dynamically from the database in the final version.
-        </p>
-
-        <ul class="event-meta">
-            <li><strong>Time:</strong> --:--</li>
-            <li><strong>Location:</strong> ---</li>
-        </ul>
-
-        <a class="button button-light" href="event.html">
-            Read Details
-        </a>
-    </div>
-</article>
-
-<article class="bulletin">
-    <div class="bulletin-date">
-        <strong>--</strong>
-        <span>---</span>
-    </div>
-
-    <img src="images/drone-mapping.svg" alt="Introduction to Drone Mapping">
-
-    <div class="bulletin-copy">
-        <span class="ticket">Technology</span>
-
-        <h2>Introduction to Drone Mapping</h2>
-
-        <p>
-            Event information will be loaded dynamically from the database in the final version.
-        </p>
-
-        <ul class="event-meta">
-            <li><strong>Time:</strong> --:--</li>
-            <li><strong>Location:</strong> ---</li>
-        </ul>
-
-        <a class="button button-light" href="event.html">
-            Read Details
-        </a>
-    </div>
-</article>
-
-<article class="bulletin">
-    <div class="bulletin-date">
-        <strong>--</strong>
-        <span>---</span>
-    </div>
-
-    <img src="images/food-heritage.svg" alt="Saudi Food Heritage Exhibition">
-
-    <div class="bulletin-copy">
-        <span class="ticket">Community</span>
-
-        <h2>Saudi Food Heritage Exhibition</h2>
-
-        <p>
-            Event information will be loaded dynamically from the database in the final version.
-        </p>
-
-        <ul class="event-meta">
-            <li><strong>Time:</strong> --:--</li>
-            <li><strong>Location:</strong> ---</li>
-        </ul>
-
-        <a class="button button-light" href="event.html">
-            Read Details
-        </a>
-    </div>
-</article>
-
-        </div>
+                            <a class="button button-light" href="event.php?id=<?php echo (int) $event['id']; ?>">
+                                Read details
+                            </a>
+                        </div>
+                    </article>
+                <?php endwhile; ?>
+            </div>
+        <?php else: ?>
+            <div class="empty-state">
+                <h2>No events found</h2>
+                <p>The events table is currently empty.</p>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
 
-</main>
-
-<footer>
-    <div class="shell">
-        <p>© 2026 Namaa Campus Events</p>
-    </div>
-</footer>
-
-</body>
-</html>
+<?php
+mysqli_close($conn);
+require 'includes/footer.php';
+?>
